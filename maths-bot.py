@@ -4,18 +4,23 @@ import discord
 TOKEN = 'XXX'
 WEEKLY_URL = "https://www.kcl.ac.uk/mathsschool/weekly-maths-challenge/weekly-maths-challenge.aspx"
 
+#Function to get the current weekly challenge Title and Description
 def weekly():
     import requests
     from bs4 import BeautifulSoup
 
+    #Gets the entire webpage HTML
     r = requests.get(WEEKLY_URL)
     html = r.text
 
+    #the Title is always 2 'siblings' after the first h3 tag
     soup = BeautifulSoup(html, 'html.parser')
     title = soup.h3.next_sibling.next_sibling
 
     text = ""
     element = title
+    #The description is a variable length, but always ends with an <hr/> tag.
+    #This loops until that tag is reached, adding the text (that isn't blank, there is a lot of whitespace) to the Decription
     while "<hr/>" not in str(element):
         element = element.next_sibling
         #print(element)
@@ -24,7 +29,7 @@ def weekly():
         else:
             text += "\n"
 
-    message = "**"+title.getText()+"**\n"+text
+    message = "**"+title.getText()+"**\n"+text #Returns the message for the bot to send; the Title in bold and the challenge description after it
     return message
 
 client = discord.Client()
