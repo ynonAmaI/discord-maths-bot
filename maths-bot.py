@@ -7,6 +7,8 @@ from random import randint
 
 TOKEN = 'XXX'
 WEEKLY_URL = "https://www.kcl.ac.uk/mathsschool/weekly-maths-challenge/weekly-maths-challenge.aspx" #All problems are sourced from the Kings Maths School Seven Day Maths website
+NOTIF_CHANNEL_ID = 'XXX'
+TARGET_CHANNEL_ID = 'XXX'
 
 #Function to generate an array of all the (absolute) links to each problem.
 #Currently does only problems 101 onwards, as the rest are stored differently.
@@ -83,13 +85,23 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith("!weekly"): #Sends message with current weekly challenge
+    if message.content.startswith("?weekly"): #Sends message with current weekly challenge
         msg = question(False)
         await client.send_message(message.channel, msg)
 
-    if message.content.startswith("!question"): #Sends message with a random problem from the currently supported archive.
+    if message.content.startswith("?question"): #Sends message with a random problem from the currently supported archive.
         msg = question(True)
         await client.send_message(message.channel, msg)
+
+    #The bot posts a message when the weekly challenge updates; this relies on a webhook connected to their Twitter account. (which only tweets when the challenge updates)
+    #The bot listens to a specific channel; this should be a private channel only used for the webhook
+    #When a message is sent to the notification channel, the bot posts the weekly challenge to the target channel.
+    notifChannel = client.get_channel(NOTIF_CHANNEL_ID)
+    targetChannel = client.get_channel(TARGET_CHANNEL_ID)
+    if message.channel == notifChannel:
+        msg = "This week's challenge!\n--------------------------\n"
+        msg += question(False)
+        await client.send_message(targetChannel, msg)
 
 @client.event
 async def on_ready():
