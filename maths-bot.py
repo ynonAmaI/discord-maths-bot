@@ -5,10 +5,11 @@ import requests
 from bs4 import BeautifulSoup
 from random import randint
 
-TOKEN = 'XXX'
+TOKEN = "XXX"
 WEEKLY_URL = "https://www.kcl.ac.uk/mathsschool/weekly-maths-challenge/weekly-maths-challenge.aspx" #All problems are sourced from the Kings Maths School Seven Day Maths website
 NOTIF_CHANNEL_ID = 'XXX'
 TARGET_CHANNEL_ID = 'XXX'
+WEEKLY_TEXT = "This week's challenge!\n--------------------------\n" #Beginning of the message that gets posted when the weekly problem updates
 
 #Function to generate an array of all the (absolute) links to each problem.
 #Currently does only problems 101 onwards, as the rest are stored differently.
@@ -85,6 +86,10 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    if message.content.startswith('?hello'):
+        msg = 'Hello {0.author.mention}'.format(message)
+        await client.send_message(message.channel, msg)
+
     if message.content.startswith("?weekly"): #Sends message with current weekly challenge
         msg = question(False)
         await client.send_message(message.channel, msg)
@@ -92,16 +97,24 @@ async def on_message(message):
     if message.content.startswith("?question"): #Sends message with a random problem from the currently supported archive.
         msg = question(True)
         await client.send_message(message.channel, msg)
+        
 
     #The bot posts a message when the weekly challenge updates; this relies on a webhook connected to their Twitter account. (which only tweets when the challenge updates)
     #The bot listens to a specific channel; this should be a private channel only used for the webhook
     #When a message is sent to the notification channel, the bot posts the weekly challenge to the target channel.
     notifChannel = client.get_channel(NOTIF_CHANNEL_ID)
     targetChannel = client.get_channel(TARGET_CHANNEL_ID)
-    if message.channel == notifChannel:
-        msg = "This week's challenge!\n--------------------------\n"
+    if message.channel == notifChannel and message.content.startswith("!post"):
+        msg = WEEKLY_TEXT
         msg += question(False)
-        await client.send_message(targetChannel, msg)
+
+        currentPins = await client.pins_from(targetChannel) #Gets all current pins from the channel where the message is to be posted
+        for i in currentPins: #Loops through all currently pinned messages
+            if i.content.startswith(WEEKLY_TEXT) and i.author == client.user: #If the message is the last weekly problem post
+                await client.unpin_message(i) #Unpin the message
+
+        toPin = await client.send_message(targetChannel, msg) #Sends the message to the target channel, and assigns that message to the variable toPin
+        await client.pin_message(toPin) #Pins the message
 
 @client.event
 async def on_ready():
