@@ -5,11 +5,11 @@ import requests
 from bs4 import BeautifulSoup
 from random import randint
 
-TOKEN = "XXX"
 WEEKLY_URL = "https://www.kcl.ac.uk/mathsschool/weekly-maths-challenge/weekly-maths-challenge.aspx" #All problems are sourced from the Kings Maths School Seven Day Maths website
+WEEKLY_TEXT = "This week's challenge!\n--------------------------\n" #Beginning of the message that gets posted when the weekly problem updates
+TOKEN = "NDYxODAwNTQ3MTI1NTU5MzA2.DhYlOg.87JFcgMjJf4IvHOEeHijA9JWeus"
 NOTIF_CHANNEL_ID = 'XXX'
 TARGET_CHANNEL_ID = 'XXX'
-WEEKLY_TEXT = "This week's challenge!\n--------------------------\n" #Beginning of the message that gets posted when the weekly problem updates
 
 #Function to generate an array of all the (absolute) links to each problem.
 #Currently does only problems 101 onwards, as the rest are stored differently.
