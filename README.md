@@ -37,7 +37,7 @@ NOTIF_CHANNEL_ID = 'XXX' #This is the ID of the channel that your webhook will s
 TARGET_CHANNEL_ID = 'XXX' #This is the ID of the channel you would like the bot to send the message containing the Weekly Challenge to
 ```
 
-And you should be good to go!
+And you should be good to go! Simply run your program `python maths-bot.py` to get your bot online.
 
 ---
 This project is licensed under the terms of the MIT license, which can be found in the `LICENSE.txt` file in the root of the repository.
