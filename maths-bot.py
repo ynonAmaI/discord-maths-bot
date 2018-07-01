@@ -86,15 +86,11 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith('?hello'):
-        msg = 'Hello {0.author.mention}'.format(message)
-        await client.send_message(message.channel, msg)
-
-    if message.content.startswith("?weekly"): #Sends message with current weekly challenge
+    if message.content.startswith("!weekly"): #Sends message with current weekly challenge
         msg = question(False)
         await client.send_message(message.channel, msg)
 
-    if message.content.startswith("?question"): #Sends message with a random problem from the currently supported archive.
+    if message.content.startswith("!question"): #Sends message with a random problem from the currently supported archive.
         msg = question(True)
         await client.send_message(message.channel, msg)
         
