@@ -11,6 +11,7 @@ A Discord Maths Bot written in Python. designed to give problems from the Kings 
 * [requests](http://docs.python-requests.org/en/master/) - Used for HTTP requests to fetch content from the website
 * [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) - From `bs4`, used to parse the HTML from the website
 * [randint](https://docs.python.org/3/library/random.html) - From `random`, does what it says on the tin
+* [re](https://docs.python.org/3/library/re.html) - Regular expressions, or regex, used for searching through the HTML
 
 ### Other
 To know when the weekly challenge has change, the bot relies on a webhook that posts to a Discord channel to trigger the message with the Weekly Challenge in it. This is used because [@sevendaymaths](http://twitter.com/sevendaymaths) only tweets when the challenge has updated, and thus serves as a useful trigger for the bot. Currently, this is done with an [IFTTT](https://ifttt.com/) applet; further details can be found in the Installation guide but an example applet can be found [here]()
