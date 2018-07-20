@@ -15,7 +15,7 @@ A Discord Maths Bot written in Python. designed to give problems from the Kings 
 * [math](https://docs.python.org/3/library/math.html) - Mathematical functions, used for its `.floor()` function
 
 ### Other
-To know when the weekly challenge has change, the bot relies on a webhook that posts to a Discord channel to trigger the message with the Weekly Challenge in it. This is used because [@sevendaymaths](http://twitter.com/sevendaymaths) only tweets when the challenge has updated, and thus serves as a useful trigger for the bot. Currently, this is done with an [IFTTT](https://ifttt.com/) applet; further details can be found in the Installation guide but an example applet can be found [here]()
+To know when the weekly challenge has change, the bot relies on a webhook that posts to a Discord channel to trigger the message with the Weekly Challenge in it. This is used because [@sevendaymaths](http://twitter.com/sevendaymaths) only tweets when the challenge has updated, and thus serves as a useful trigger for the bot. Currently, this is done with an [IFTTT](https://ifttt.com/) applet; further details can be found in the Installation guide but details of the applet can be found below.
 
 ### Installation
 
