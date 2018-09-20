@@ -6,14 +6,15 @@ from bs4 import BeautifulSoup
 from random import randint
 import re
 import math
+import os
 
 WEEKLY_URL = "https://www.kcl.ac.uk/mathsschool/weekly-maths-challenge/weekly-maths-challenge.aspx" #All problems are sourced from the Kings Maths School Seven Day Maths website
 #Problems 101 onwards have their own pages, linked from the weekly URL
 ARCHIVE_URLS = ["https://www.kcl.ac.uk/mathsschool/weekly-maths-challenge/previouschallenges.aspx", "https://www.kcl.ac.uk/mathsschool/weekly-maths-challenge/recentchallenges.aspx", "https://www.kcl.ac.uk/mathsschool/weekly-maths-challenge/challenges-41-60.aspx", "https://www.kcl.ac.uk/mathsschool/weekly-maths-challenge/challenges-61-80.aspx", "https://www.kcl.ac.uk/mathsschool/weekly-maths-challenge/challenges-81-100.aspx"]
 WEEKLY_TEXT = "This week's challenge!\n--------------------------\n" #Beginning of the message that gets posted when the weekly problem updates
-TOKEN = "XXX"
-NOTIF_CHANNEL_ID = 'XXX'
-TARGET_CHANNEL_ID = 'XXX'
+TOKEN = os.environ["BOT_TOKEN"]
+NOTIF_CHANNEL_ID = os.environ["NOTIF_CHANNEL_ID"]
+TARGET_CHANNEL_ID = os.environ["TARGET_CHANNEL_ID"]
 
 #Function to generate an array of all the (absolute) links to each problem.
 #Used only for problems 101 onwards, as the rest are stored differently. Urls are in ARCHIVE_URLS
